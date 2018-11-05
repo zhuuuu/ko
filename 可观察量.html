@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <style>
+        .profitWarning {
+            width: 100px;
+            height: 100px;
+            border: 1px solid red
+        }
+
+        .profitPositive {
+            width: 100px;
+            height: 80px;
+            border: 2px dashed green
+        }
+    </style>
+</head>
+
+<body>
+    <span data-bind="text:full"></span>
+    <!-- <span data-bind="text:full()"></span> -->
+    <div data-bind="css:{profitWarning:currentProfit()< 0}"></div>
+    <div data-bind="css:"></div>
+    <script src="https://cdn.bootcss.com/knockout/3.4.2/knockout-min.js"></script>
+    <script> 
+        function ViewModel() {
+            var self = this
+            self.first = ko.observable('A')
+            self.last = ko.observable('B')
+            self.full = ko.computed(function () { return self.first() + '+' + self.last() })
+            // self.full = function () {
+            //     return self.first() + '+' + self.last()
+            // }
+            //css结合
+            self.currentProfit = ko.observable();
+            self.currentProfit(-10)
+        }
+        ko.applyBindings(new ViewModel())
+    </script>
+</body>
+
+</html>

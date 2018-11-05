@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <style>
+        .first-name {
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+    <ul data-bind="foreach:arr">
+        <li class='first-name' data-bind="text:name"></li>
+        <li class='first-name' data-bind="text:age"></li>
+    </ul>
+    <button data-bind="click:add">+添加</button>
+    <script src="https://cdn.bootcss.com/knockout/3.4.2/knockout-min.js"></script>
+ 
+    <script>
+        var firstModel = function () {
+            var self = this;//防止在事件触发的时候ViewModel的this和事件自己的this混淆
+            //self.a=ko.observable() ko定义变量
+            self.arr = ko.observableArray([])//定义数组
+            self.arrTest=ko.observableArray(['Bungle','George','Zippy'])
+            self.add = function () {
+                self.arr.push({ name: 'hi', age: 111 })
+            }
+            //self.arr()  变量取值
+            self.arr([{ name: 'hello', age: 5555 }])  //self.arr([])变量赋值
+            //self.arr.removeAll()清除所有
+            console.log(self.arr().length)
+            console.log(self.arrTest.indexOf('Zippy'))//2  返回改数组项的索引，从零开始的索引
+            console.log(self.arrTest.slice(0,2))//截取数组一部分，包括开始，不包括结束
+
+            self.arrTest.replace('Bungle','zhu')//replace(oldItem,newItem)替换，用第二个值替换第一个值
+            console.log(self.arrTest())//['zhu','George','Zippy']
+            //replace()  remove()  removeAll() 是ko中有，js数组中找不到的方法
+        }
+        ko.applyBindings(new firstModel()); 
+    </script>
+</body>
+
+</html>
